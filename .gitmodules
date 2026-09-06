@@ -1,0 +1,6 @@
+[submodule "xternal/SDL"]
+	path = xternal/SDL
+	url = https://github.com/libsdl-org/SDL.git
+[submodule "xternal/glm"]
+	path = xternal/glm
+	url = https://github.com/g-truc/glm.git
