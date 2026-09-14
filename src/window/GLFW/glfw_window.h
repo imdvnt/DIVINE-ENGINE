@@ -8,10 +8,10 @@ namespace DELIB
     public:
         GLFWWindow(int width = 800, int height = 600, std::string title = "Divine Engine")
         {
-            Init();
             this->width = width;
             this->height = height;
             this->title = title;
+            Init();
         };
         ~GLFWWindow()
         {

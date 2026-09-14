@@ -6,6 +6,20 @@
 
 namespace DELIB
 {
+    namespace
+    {
+        void FramebufferSizeCallback(GLFWwindow* window, int width, int height)
+        {
+            auto* self = static_cast<GLFWWindow*>(glfwGetWindowUserPointer(window));
+            if (self)
+            {
+                self->width = width;
+                self->height = height;
+            }
+            glViewport(0, 0, width, height);
+        }
+    }
+
     void GLFWWindow::Init()
     {
         Logger::Info("Initializing GLFW window...");
@@ -26,7 +40,7 @@ namespace DELIB
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-        GLFWwindow* window = glfwCreateWindow(width, height, "Scene", NULL, NULL);
+        GLFWwindow* window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
         if (!window) {
             fprintf(stderr, "Failed to create GLFW window\n");
             glfwTerminate();
@@ -42,6 +56,9 @@ namespace DELIB
             glfwTerminate();
             exit(EXIT_FAILURE);
         }
+
+        glfwSetWindowUserPointer(window, this);
+        glfwSetFramebufferSizeCallback(window, FramebufferSizeCallback);
     }
 
     void GLFWWindow::Destroy()

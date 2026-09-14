@@ -10,7 +10,7 @@ inline std::string GetDataFromFile(const std::string& filepath)
     std::ifstream file (filepath);
     if(!file)
     {
-        std::cerr<<"Couldn't open file: " + filepath;
+        std::cerr<<"Couldn't open file: " + filepath + "\n";
     }
     std::stringstream stream;
     stream<<file.rdbuf();
@@ -22,7 +22,7 @@ inline std::vector<std::string> ReadLinesFromFile(const std::string& filepath)
     std::ifstream file (filepath);
     if(!file)
     {
-        std::cerr<<"Couldn't open file: " + filepath;
+        std::cerr<<"Couldn't open file: " + filepath + "\n";
     }
     std::vector<std::string> lines;
     std::string line;

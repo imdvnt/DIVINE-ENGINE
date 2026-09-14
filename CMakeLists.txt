@@ -16,17 +16,26 @@ add_subdirectory (xternal/glfw)
 add_library (delib
     src/delib.c++
     src/renderer/software/software_renderer.c++
-    src/renderer/opengl/opengl_renderer.c++
+    src/renderer/opengl/gl_renderer.c++
+    src/renderer/opengl/gl_shader.c++
+    src/renderer/opengl/gl_texture.c++
+    src/renderer/object3d.c++
+    src/renderer/camera.c++
+    src/renderer/material.c++
+
+
     src/window/GLFW/glfw_window.c++
     src/window/SDL/sdl_window.c++
-    src/common/camera/camera.c++
+
     src/common/ui/deui.c++
-    src/common/material/material.c++
-    xternal/glad/src/glad.c
-    src/common/shader/shader.c++
     src/common/transform/transform.h
     src/common/particle/particle.h
     src/common/particle/particle.c++
+    src/common/transform/transform.c++
+    src/common/transform/transform.h
+    src/common/triangle3d/triangle3d.c++
+    
+    xternal/glad/src/glad.c
     )
 
 target_link_libraries(delib PUBLIC SDL3::SDL3)

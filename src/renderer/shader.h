@@ -11,11 +11,22 @@ namespace DELIB
         std::string name;
         unsigned int program_id;
         Shader() : id(0), name(""), program_id(0) {}
-        
-        void Create(std::string vert, std::string frag);
+        Shader(const std::string& vert, const std::string& frag) : id(0), name(""), program_id(0)
+        {
+            CreateFromFiles(vert, frag);
+        }
+        ~Shader();
+
+        // Объекты держат Shader*, копия привела бы к двойному glDeleteProgram.
+        Shader(const Shader&) = delete;
+        Shader& operator=(const Shader&) = delete;
+
+        bool IsValid() const { return program_id != 0; }
+
+        void CreateFromFiles(const std::string& vert_path, const std::string& frag_path);
+        void CreateFromSource(const std::string& vert_source, const std::string& frag_source);
         void Bind() const;
         void Unbind() const;
-        void Compile() const;
         void SetUniformMat4(const std::string& name, const glm::mat4& matrix) const;
         void SetUniformVec3(const std::string& name, const glm::vec3& vector) const;
         void SetUniformVec2(const std::string& name, const glm::vec2& vector) const;

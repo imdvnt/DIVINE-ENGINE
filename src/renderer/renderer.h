@@ -1,14 +1,12 @@
 #pragma once
 #include <delog.hpp>
 
-#include "common/triangle3d/triangle3d.h"
-
 namespace DELIB
 {
     class Window;
+    class Object3D;
     struct Camera;
-    struct Shader;
-    
+
     class Renderer
     {
     public:
@@ -25,7 +23,7 @@ namespace DELIB
         Window* window = nullptr;
         virtual void Init() = 0;
         virtual void ClearScreen (float r, float g, float b, float a) = 0;
-        virtual void RenderMesh(const Mesh3D& mesh, const Camera& camera, const Shader& shader) = 0;
+        virtual void RenderObject(const Object3D& object, const Camera& camera) = 0;
         virtual void Destroy() = 0;
     };
 }

@@ -4,7 +4,7 @@
 #include "window/GLFW/glfw_window.h"
 #include "renderer/renderer.h"
 #include "renderer/software/software_renderer.h"
-#include "renderer/opengl/opengl_renderer.h"
+#include "renderer/opengl/gl_renderer.h"
 
 #include <delog.hpp>
 #include <detime.hpp>
@@ -39,8 +39,6 @@ namespace DELIB
 
     bool Init(Application& app)
     {
-        Logger::Info("Initializing DELIB framework...");
-
         app.wnd = new GLFWWindow();
         if (!app.wnd->context)
         {
@@ -49,7 +47,7 @@ namespace DELIB
         }
         Logger::Info("Window created: ", app.wnd->width, "x", app.wnd->height);
 
-        app.renderer = new OpenGLRenderer(app.wnd);
+        app.renderer = new GL_Renderer(app.wnd);
         if (!app.renderer)
         {
             Logger::Error("Renderer initialization failed; aborting startup.");
@@ -93,18 +91,13 @@ namespace DELIB
         Logger::Info("Entering main loop...");
         while (!app.wnd->ShouldClose())
         {
-            Logger::Info("Updating time...");
             Time::Update(0.1f);
-            app.renderer->ClearScreen(sin(Time::SinceStart()), 0.0f, 0.0f, 1.0f);
-            Logger::Info("Delta time: ", Time::Delta(), " seconds");
-            Logger::Info("Polling events and updating application...");
-            app.wnd->PollEvents();
-            app.Update(Time::Delta());
-            Logger::Info("Updating current scene...");
-            app.current_scene->Update(Time::Delta());
-            // app.current_scene->Draw(app.renderer);
 
-            Logger::Info("Swapping buffers...");
+            app.wnd->PollEvents();
+
+            app.renderer->ClearScreen(0.851f, 0.824f, 0.753f, 1.0f);
+            app.Update(Time::Delta());
+            // Logger::Info("Swapping buffers...");
             app.wnd->SwapBuffers();
         }
         Shutdown(app);
